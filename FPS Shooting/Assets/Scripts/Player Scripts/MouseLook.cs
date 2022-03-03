@@ -33,12 +33,10 @@ public class MouseLook : MonoBehaviour
         LockAndUnlockCursor();
 
         //moving around with mouse if only mouse is locked
-        if (Cursor.lockState == CursorLockMode.Locked && !GameManager.isPlayerDead) 
+        if ((Cursor.lockState == CursorLockMode.Locked && !GameManager.isPlayerDead) || UI_Handler.isAndroidActive) 
         {
             LookAround();
         }
-
-
 
     }
 
@@ -62,6 +60,12 @@ public class MouseLook : MonoBehaviour
     {
         //Getting mouse movement
         Current_Mouse_Look = new Vector2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
+
+        //Override input if in android mode
+        if(UI_Handler.isAndroidActive)
+        {
+            Current_Mouse_Look = new Vector2(SimpleInput.GetAxis("mouseY"), SimpleInput.GetAxis("mouseX"));        
+        }
 
         // setting the look sensivity
         look_Angle.x += Current_Mouse_Look.x * sensivity * (invert ? 1f : -1f);

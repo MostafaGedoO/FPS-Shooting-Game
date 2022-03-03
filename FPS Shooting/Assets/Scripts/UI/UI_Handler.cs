@@ -11,8 +11,21 @@ public class UI_Handler : MonoBehaviour
      */
 
     public TextMeshProUGUI health, bullets, boars;
-    public GameObject WinUI, GameUI, GameOverUI;
+    public GameObject WinUI, GameUI, GameOverUI,andriod_UI;
+    public static bool isAndroidActive;
 
+    private void Start()
+    {
+        // checking if android is on to change inputs or not 
+        if(andriod_UI.activeInHierarchy)
+        {
+            isAndroidActive = true;
+        }
+        else
+        {
+            isAndroidActive = false;
+        }
+    }
 
     void Update()
     {

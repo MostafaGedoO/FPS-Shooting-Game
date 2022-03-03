@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour
         Shoot();    
     }
 
-    public void Shoot()
+    void Shoot()
     {
         if (!isShooting && Input.GetMouseButtonDown(0) && !GameManager.isPlayerDead && GameManager.bullets >= 1 && !GameManager.IsPlayerWin)
         {
@@ -62,6 +62,15 @@ public class Weapon : MonoBehaviour
             RayCastManager.HitObject.GetComponent<BoarAttack>().isPlayerInRange = false;
             RayCastManager.HitObject.GetComponent<AudioSource>().Play();
             Destroy(RayCastManager.HitObject, 5f);
+        }
+    }
+
+    public void AndroidShoot()
+    {
+        if (!isShooting && !GameManager.isPlayerDead && GameManager.bullets >= 1 && !GameManager.IsPlayerWin)
+        {
+            isShooting = true;
+            StartCoroutine(Shooting());
         }
     }
 }

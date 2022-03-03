@@ -34,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
         {
             //Moving the player using axis
             MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            if(UI_Handler.isAndroidActive)
+            {
+                //override the vector on android mode
+                MoveDirection = new Vector3(SimpleInput.GetAxis("Horizontal"), 0, SimpleInput.GetAxis("Vertical"));
+            }
             MoveDirection = transform.TransformDirection(MoveDirection);
             MoveDirection *= Speed * Time.deltaTime;
             ApplyGravity();
@@ -59,12 +64,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void PlayerJump()
+    void PlayerJump()
     {
         //Jumping with the space 
         if (CharacterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             VerticalVolacity = jumpForce;
         }
+    }
+
+    public void Jump()
+    {
+        VerticalVolacity = jumpForce;
     }
 }
